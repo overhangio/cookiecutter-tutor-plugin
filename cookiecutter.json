@@ -1,0 +1,8 @@
+{
+  "plugin_name": "myplugin",
+  "package_name": "tutor-{{ cookiecutter.plugin_name }}",
+  "module_name": "tutor{{ cookiecutter.plugin_name.lower().replace('-', '_') }}",
+  "git_repo": "https://github.com/myusername/tutor-{{ cookiecutter.plugin_name }}",
+  "author": "John Doe",
+  "license": "AGPLv3"
+}
