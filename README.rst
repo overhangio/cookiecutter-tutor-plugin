@@ -17,7 +17,7 @@ Usage
     
     cookiecutter https://github.com/overhangio/cookiecutter-tutor-plugin.git
 
-Once you have generated your plugin, you can start using it right away (even if it won't do any anything)::
+Once you have generated your plugin, you can start using it right away (even if it won't do anything)::
   
     pip install -e ./tutor-myplugin
     tutor plugins list # your plugin should appear here
