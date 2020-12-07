@@ -14,7 +14,7 @@ Usage
 ::
 
     tutor plugins enable {{ cookiecutter.plugin_name }}
-    
+
 
 License
 -------
