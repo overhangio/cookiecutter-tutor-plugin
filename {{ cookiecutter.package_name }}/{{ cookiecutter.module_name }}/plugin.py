@@ -1,11 +1,12 @@
 from glob import glob
 import os
+import pkg_resources
 
 from .__about__ import __version__
 
-HERE = os.path.abspath(os.path.dirname(__file__))
-
-templates = os.path.join(HERE, "templates")
+templates = pkg_resources.resource_filename(
+    "{{ cookiecutter.module_name }}", "templates"
+)
 
 config = {}
 
@@ -14,7 +15,10 @@ hooks = {}
 
 def patches():
     all_patches = {}
-    for path in glob(os.path.join(HERE, "patches", "*")):
+    patches_dir = pkg_resources.resource_filename(
+        "{{ cookiecutter.module_name }}", "patches"
+    )
+    for path in glob(os.path.join(patches_dir, "*")):
         with open(path) as patch_file:
             name = os.path.basename(path)
             content = patch_file.read()
