@@ -17,8 +17,10 @@ Usage
 
     cookiecutter https://github.com/overhangio/cookiecutter-tutor-plugin.git
 
+Please keep the "contrib" part in your generated package name to differentiate from official plugins.
+
 Once you have generated your plugin, you can start using it right away (even if it won't do anything)::
- 
+
     pip install -e ./tutor-myplugin
     tutor plugins list # your plugin should appear here
     tutor plugins enable myplugin # hack at it!
