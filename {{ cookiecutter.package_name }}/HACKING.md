@@ -4,6 +4,19 @@ Developer notes
 This document is for people who maintain and contribute to this
 repository.
 
+Commit messages
+---------------
+
+Commit messages follow the [Conventional
+Commits](https://www.conventionalcommits.org/) format that is also
+used by Tutor and Open edX. See
+[OEP-0051](https://open-edx-proposals.readthedocs.io/en/latest/best-practices/oep-0051-bp-conventional-commits.html)
+for details.
+
+We enforce the prescribed [type
+prefixes](https://open-edx-proposals.readthedocs.io/en/latest/best-practices/oep-0051-bp-conventional-commits.html#type)
+to be used in commit messages via
+[Gitlint](https://jorisroovers.com/gitlint/).
 
 How to run tests
 ----------------

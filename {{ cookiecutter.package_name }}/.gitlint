@@ -1,0 +1,29 @@
+[general]
+contrib=contrib-title-conventional-commits
+
+# When invoked as just "gitlint" without any other arguments, Gitlint
+# processes the most recent commit message *unless* it's being fed
+# data on stdin, in which case it assumes that what comes in is a
+# commit message. That means it breaks on the pre-push hook, which
+# puts the list of to-be-pushed revisions on stdin. We can work around
+# that by telling Gitlint to always ignore stdin.
+ignore-stdin=true
+
+[ignore-body-lines]
+# Ignore certain lines in a commit body that match a regex.
+#
+# Allow long links in a list of references, as long as they are on
+# their own line.
+regex=^https?://
+
+[ignore-by-title]
+# Match commit titles matching a bumpversion commit.
+# For those commits, allow an empty message body.
+regex=^build: Version
+ignore=body-is-missing
+
+[contrib-title-conventional-commits]
+# Specify allowed commit types.
+#
+# Reference: https://open-edx-proposals.readthedocs.io/en/latest/best-practices/oep-0051-bp-conventional-commits.html#type
+types = build,chore,docs,feat,fix,perf,refactor,revert,style,test,temp
