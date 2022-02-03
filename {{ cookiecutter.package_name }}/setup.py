@@ -10,23 +10,9 @@ def load_readme():
         return f.read()
 
 
-def load_about():
-    about = {}
-    with io.open(
-        os.path.join(HERE, "{{ cookiecutter.module_name }}", "__about__.py"),
-        "rt",
-        encoding="utf-8",
-    ) as f:
-        exec(f.read(), about)  # pylint: disable=exec-used
-    return about
-
-
-ABOUT = load_about()
-
-
 setup(
     name="{{ cookiecutter.package_name }}",
-    version=ABOUT["__version__"],
+    use_scm_version=True,
     url="{{ cookiecutter.git_repo }}",
     project_urls={
         "Code": "{{ cookiecutter.git_repo }}",
@@ -40,6 +26,7 @@ setup(
     include_package_data=True,
     python_requires=">=3.6",
     install_requires=["tutor"],
+    setup_requires=["setuptools-scm"],
     entry_points={
         "tutor.plugin.v0": [
             "{{ cookiecutter.plugin_name }} = {{ cookiecutter.module_name }}.plugin"
