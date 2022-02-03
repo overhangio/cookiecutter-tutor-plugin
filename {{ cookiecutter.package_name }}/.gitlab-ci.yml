@@ -1,0 +1,36 @@
+image: python
+
+py36:
+  image: python:3.6
+  stage: build
+  script:
+    - pip install tox
+    - tox -e py36,flake8
+
+py37:
+  image: python:3.7
+  stage: build
+  script:
+    - pip install tox
+    - tox -e py37,flake8
+
+py38:
+  image: python:3.8
+  stage: build
+  script:
+    - pip install tox
+    - tox -e py38,flake8
+
+py39:
+  image: python:3.9
+  stage: build
+  script:
+    - pip install tox
+    - tox -e py39,flake8
+
+py310:
+  image: python:3.10
+  stage: build
+  script:
+    - pip install tox
+    - tox -e py310,flake8
