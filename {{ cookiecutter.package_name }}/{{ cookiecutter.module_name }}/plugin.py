@@ -2,12 +2,17 @@ from glob import glob
 import os
 import pkg_resources
 
+from .__about__ import __version__
 
 templates = pkg_resources.resource_filename(
     "{{ cookiecutter.module_name }}", "templates"
 )
 
-config = {}
+config = {
+    "defaults": {
+        "VERSION": __version__,
+    },
+}
 
 hooks = {}
 
