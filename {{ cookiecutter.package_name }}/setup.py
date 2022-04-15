@@ -41,7 +41,7 @@ setup(
     python_requires=">=3.5",
     install_requires=["tutor"],
     entry_points={
-        "tutor.plugin.v0": [
+        "tutor.plugin.v1": [
             "{{ cookiecutter.plugin_name }} = {{ cookiecutter.module_name }}.plugin"
         ]
     },

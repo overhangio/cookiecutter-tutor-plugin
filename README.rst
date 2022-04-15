@@ -25,6 +25,97 @@ Once you have generated your plugin, you can start using it right away (even if 
     tutor plugins list # your plugin should appear here
     tutor plugins enable myplugin # hack at it!
 
+Migrating from v0 plugins
+-------------------------
+
+The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter generates plugin scaffolds for v1. The v0 API will be supported for some time, but you are encouraged to upgrade your plugins. To upgrade a v0 plugin that was generated previously with this cookiecutter, perform the following steps:
+
+- In setup.py: replace "tutor.plugin.v0" by "tutor.plugin.v1".
+- In the templates folder: rename the "hooks" folder to "tasks".
+- In plugin.py:
+    - At the top of the file, add the following line::
+
+        from tutor import hooks
+
+    - Modify the ``config`` object:
+        - If present, replace the "add" key by "unique".
+        - If present, replace the "set" key by "overrides".
+    - Replace the ``hooks`` object:
+        - If present, replace each "myservice" item in "init" by::
+
+            hooks.Filters.COMMANDS_INIT.add_item((
+                "myservice",
+                ("yourplugin", "tasks", "myservice", "init"),
+            ))
+
+        - If present, replace each "myservice" item in "pre-init" by::
+
+            hooks.Filters.COMMANDS_PRE_INIT.add_item((
+                "myservice",
+                ("yourplugin", "tasks", "myservice", "pre-init"),
+            ))
+
+        - If present, replace each ``"myimage": "myimage:latest"`` key/value in "build-image" by::
+
+            hooks.Filters.IMAGES_BUILD.add_item((
+                "myimage",
+                ("plugins", "yourplugin", "build", "myimage"),
+                "myimage:latest",
+                (),
+            ))
+
+        - If present, replace each ``"myimage": "myimage:latest"`` key/value in "remote-image" by::
+
+            hooks.Filters.IMAGES_PULL.add_item((
+                "myimage",
+                "myimage:latest",
+            ))
+            hooks.Filters.IMAGES_PUSH.add_item((
+                "myimage",
+                "myimage:latest",
+            ))
+    - Delete the ``patches`` function.
+    - Add the following piece of code at the bottom of your file::
+
+        ####### Boilerplate code
+        hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
+            pkg_resources.resource_filename("yourplugin", "templates")
+        )
+        hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
+            [
+                ("yourplugin/build", "plugins"),
+                ("yourplugin/apps", "plugins"),
+            ],
+        )
+        for path in glob(
+            os.path.join(
+                pkg_resources.resource_filename("tutoryourplugin", "patches"),
+                "*",
+            )
+        ):
+            with open(path, encoding="utf-8") as patch_file:
+                hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
+
+        # Load all configuration entries
+        hooks.Filters.CONFIG_DEFAULTS.add_items(
+            [
+                (f"YOUR_PLUGIN_{key}", value)
+                for key, value in config.get("defaults", {}).items()
+            ]
+        )
+        hooks.Filters.CONFIG_UNIQUE.add_items(
+            [
+                (f"YOUR_PLUGIN_{key}", value)
+                for key, value in config.get("unique", {}).items()
+            ]
+        )
+        hooks.Filters.CONFIG_OVERRIDES.add_items(list(config.get("overrides", {}).items()))
+
+    - Verify that the file contains no instance of "yourplugin" or "YOUR_PLUGIN". If it does, replace by your plugin name.
+
+- Re-install your plugin.
+- Verify that the plugin is listed when you run ``tutor plugins list``.
+
 License
 -------
 
