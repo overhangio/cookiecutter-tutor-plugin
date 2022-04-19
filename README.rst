@@ -78,15 +78,18 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
     - Add the following piece of code at the bottom of your file::
 
         ####### Boilerplate code
+        # Add the "templates" folder as a template root
         hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
             pkg_resources.resource_filename("yourplugin", "templates")
         )
+        # Render the "build" and "apps" folders
         hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
             [
                 ("yourplugin/build", "plugins"),
                 ("yourplugin/apps", "plugins"),
             ],
         )
+        # Load patches from files
         for path in glob(
             os.path.join(
                 pkg_resources.resource_filename("tutoryourplugin", "patches"),
@@ -95,8 +98,7 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
         ):
             with open(path, encoding="utf-8") as patch_file:
                 hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
-
-        # Load all configuration entries
+        # Add configuration entries
         hooks.Filters.CONFIG_DEFAULTS.add_items(
             [
                 (f"YOUR_PLUGIN_{key}", value)
