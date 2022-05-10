@@ -40,6 +40,7 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
     - Modify the ``config`` object:
         - If present, replace the "add" key by "unique".
         - If present, replace the "set" key by "overrides".
+    - Delete the `templates` object.
     - Replace the ``hooks`` object:
         - If present, replace each "myservice" item in "init" by::
 
@@ -80,7 +81,7 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
         ####### Boilerplate code
         # Add the "templates" folder as a template root
         hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
-            pkg_resources.resource_filename("yourplugin", "templates")
+            pkg_resources.resource_filename("tutoryourplugin", "templates")
         )
         # Render the "build" and "apps" folders
         hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
