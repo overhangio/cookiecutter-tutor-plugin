@@ -31,17 +31,24 @@ Migrating from v0 plugins
 The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter generates plugin scaffolds for v1. The v0 API will be supported for some time, but you are encouraged to upgrade your plugins. To upgrade a v0 plugin that was generated previously with this cookiecutter, perform the following steps:
 
 - In setup.py: replace "tutor.plugin.v0" by "tutor.plugin.v1".
+
 - In the templates folder: rename the "hooks" folder to "tasks".
+
 - In plugin.py:
+
     - At the top of the file, add the following line::
 
         from tutor import hooks
 
     - Modify the ``config`` object:
+
         - If present, replace the "add" key by "unique".
         - If present, replace the "set" key by "overrides".
+
     - Delete the `templates` object.
+
     - Replace the ``hooks`` object:
+
         - If present, replace each "myservice" item in "init" by::
 
             hooks.Filters.COMMANDS_INIT.add_item((
@@ -75,7 +82,9 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
                 "myimage",
                 "myimage:latest",
             ))
+
     - Delete the ``patches`` function.
+
     - Add the following piece of code at the bottom of your file::
 
         ####### Boilerplate code
