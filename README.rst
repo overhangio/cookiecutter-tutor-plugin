@@ -36,34 +36,34 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
 
 - In plugin.py:
 
-    - At the top of the file, add the following line::
+  - At the top of the file, add the following line::
 
         from tutor import hooks
 
-    - Modify the ``config`` object:
+  - Modify the ``config`` object:
 
-        - If present, replace the "add" key by "unique".
-        - If present, replace the "set" key by "overrides".
+    - If present, replace the "add" key by "unique".
+    - If present, replace the "set" key by "overrides".
 
-    - Delete the `templates` object.
+  - Delete the `templates` object.
 
-    - Replace the ``hooks`` object:
+  - Replace the ``hooks`` object:
 
-        - If present, replace each "myservice" item in "init" by::
+    - If present, replace each "myservice" item in "init" by::
 
             hooks.Filters.COMMANDS_INIT.add_item((
                 "myservice",
                 ("yourplugin", "tasks", "myservice", "init"),
             ))
 
-        - If present, replace each "myservice" item in "pre-init" by::
+    - If present, replace each "myservice" item in "pre-init" by::
 
             hooks.Filters.COMMANDS_PRE_INIT.add_item((
                 "myservice",
                 ("yourplugin", "tasks", "myservice", "pre-init"),
             ))
 
-        - If present, replace each ``"myimage": "myimage:latest"`` key/value in "build-image" by::
+    - If present, replace each ``"myimage": "myimage:latest"`` key/value in "build-image" by::
 
             hooks.Filters.IMAGES_BUILD.add_item((
                 "myimage",
@@ -72,7 +72,7 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
                 (),
             ))
 
-        - If present, replace each ``"myimage": "myimage:latest"`` key/value in "remote-image" by::
+    - If present, replace each ``"myimage": "myimage:latest"`` key/value in "remote-image" by::
 
             hooks.Filters.IMAGES_PULL.add_item((
                 "myimage",
@@ -123,7 +123,7 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
         )
         hooks.Filters.CONFIG_OVERRIDES.add_items(list(config.get("overrides", {}).items()))
 
-    - Verify that the file contains no instance of "yourplugin" or "YOUR_PLUGIN". If it does, replace by your plugin name.
+  - Verify that the file contains no instance of "yourplugin" or "YOUR_PLUGIN". If it does, replace by your plugin name.
 
 - Re-install your plugin.
 - Verify that the plugin is listed when you run ``tutor plugins list``.
