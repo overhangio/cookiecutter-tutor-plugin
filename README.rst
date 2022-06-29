@@ -83,9 +83,9 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
                 "myimage:latest",
             ))
 
-    - Delete the ``patches`` function.
+  - Delete the ``patches`` function.
 
-    - Add the following piece of code at the bottom of your file::
+  - Add the following piece of code at the bottom of your file::
 
         ####### Boilerplate code
         # Add the "templates" folder as a template root
