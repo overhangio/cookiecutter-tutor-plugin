@@ -123,6 +123,17 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
         )
         hooks.Filters.CONFIG_OVERRIDES.add_items(list(config.get("overrides", {}).items()))
 
+  - In case the plugin has custom commands to be available from CLI, you will need to implement the CLI_COMMANDS filter according
+    to `Tutor's reference documentation <https://docs.tutor.overhang.io/reference/api/hooks/consts.html#tutor.hooks.Filters.CLI_COMMANDS>`__.
+    You can implement this filter by adding the following code line to plugin.py::
+          tutor_hooks.Filters.CLI_COMMANDS.add_item(command)
+
+  - Also, you will either need to rename the command function or use click's ``name=<plugin>`` argument.
+    For example, to ensure your plugin command(s) are available under ``tutor xqueue ...``, you could write::
+          @click.group(help="Interact with the Xqueue server", name="xqueue")
+          def command():
+              ...
+
   - Verify that the file contains no instance of "yourplugin" or "YOUR_PLUGIN". If it does, replace by your plugin name.
 
 - Re-install your plugin.
