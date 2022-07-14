@@ -16,7 +16,7 @@ config = {
     # Add here settings that don't have a reasonable default for all users. For
     # instance: passwords, secret keys, etc.
     "unique": {
-        # "SECRET_KEY": "\{\{ 24|random_string \}\}",
+        # "SECRET_KEY": "{{ '{{' }} 24|random_string {{ '}}' }}",
     },
     # Danger zone! Add here values to override settings from Tutor core or other plugins.
     "overrides": {
@@ -36,17 +36,17 @@ config = {
 # hooks.Filters.IMAGES_BUILD.add_item((
 #     "myimage",
 #     ("plugins", "{{ cookiecutter.plugin_name }}", "build", "myimage"),
-#     "docker.io/myimage:\{\{ {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION \}\}",
+#     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
 #     (),
 # )
 # To pull/push an image with `tutor images pull myimage` and `tutor images push myimage`, write:
 # hooks.Filters.IMAGES_PULL.add_item((
 #     "myimage",
-#     "docker.io/myimage:\{\{ {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION \}\}",
+#     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
 # )
 # hooks.Filters.IMAGES_PUSH.add_item((
 #     "myimage",
-#     "docker.io/myimage:\{\{ {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION \}\}",
+#     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
 # )
 
 
