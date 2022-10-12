@@ -139,6 +139,14 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
 - Re-install your plugin.
 - Verify that the plugin is listed when you run ``tutor plugins list``.
 
+
+Troubleshooting
+---------------
+
+This Tutor plugin template is maintained by `Kyle McCormick <https://github.com/kdmccormick>`_ from the `The Center for Reimagining Learning (tCRIL) <https://openedx.atlassian.net/wiki/spaces/COMM/pages/3241640370/tCRIL+Engineering+Team>`_. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`_.
+
+Do you need help using this template? See the `troubleshooting <https://docs.tutor.overhang.io/troubleshooting.html>`__ section from the Tutor documentation.
+
 License
 -------
 
