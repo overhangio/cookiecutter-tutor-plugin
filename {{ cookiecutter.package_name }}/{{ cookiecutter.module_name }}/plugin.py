@@ -91,7 +91,9 @@ hooks.Filters.ENV_TEMPLATE_ROOTS.add_items(
 hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
     # For each pair (source_path, destination_path):
     # templates at ``source_path`` (relative to your ENV_TEMPLATE_ROOTS) will be
-    # rendered to ``destination_path`` (relative to your Tutor environment).
+    # rendered to ``source_path/destination_path`` (relative to your Tutor environment).
+    # For example, ``{{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/build``
+    # will be rendered to ``$(tutor config printroot)/env/plugins/{{ cookiecutter.plugin_name }}/build``.
     [
         ("{{ cookiecutter.plugin_name }}/build", "plugins"),
         ("{{ cookiecutter.plugin_name }}/apps", "plugins"),
