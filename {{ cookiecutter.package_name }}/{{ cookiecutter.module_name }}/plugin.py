@@ -1,11 +1,15 @@
-from glob import glob
-import os
-import pkg_resources
+from __future__ import annotations
 
+import os
+import os.path
+import shlex
+from glob import glob
+
+import click
+import pkg_resources
 from tutor import hooks
 
 from .__about__ import __version__
-
 
 ########################################
 # CONFIGURATION
@@ -45,35 +49,78 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 # INITIALIZATION TASKS
 ########################################
 
-# To run the script from templates/{{ cookiecutter.plugin_name }}/tasks/myservice/init, add:
-# hooks.Filters.COMMANDS_INIT.add_item((
-#     "myservice",
-#     ("{{ cookiecutter.plugin_name }}", "tasks", "myservice", "init"),
-# ))
+# To add a custom initialization task, create a bash script template under:
+#   {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/jobs/init/
+# and then add it to the MY_INIT_TASKS list. Each task is in the format:
+#   ("<service>", ("<path>", "<to>", "<script>", "<template>"))
+MY_INIT_TASKS: list[tuple[str, tuple[str, ...]]] = [
+    ("lms", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "lms.sh")),
+    ("cms", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "cms.sh")),
+    ("mysql", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "mysql.sh")),
+]
+
+
+# For each task added to MY_INIT_TASKS, we load the task template
+# and add it to the CLI_DO_INIT_TASKS filter, which tells Tutor to
+# run it as part of the `init` job.
+for service, template_path in MY_INIT_TASKS:
+    full_path = pkg_resources.resource_filename(
+        "{{ cookiecutter.module_name }}", os.path.join("templates", *template_path)
+    )
+    with open(full_path, encoding="utf-8") as init_task_file:
+        init_task = shlex.join(["bash", "-c", init_task_file.read()])
+    hooks.Filters.CLI_DO_INIT_TASKS.add_item((service, init_task))
 
 
 ########################################
 # DOCKER IMAGE MANAGEMENT
 ########################################
 
-# To build an image with `tutor images build myimage`, add a Dockerfile to templates/{{ cookiecutter.plugin_name }}/build/myimage and write:
-# hooks.Filters.IMAGES_BUILD.add_item((
-#     "myimage",
-#     ("plugins", "{{ cookiecutter.plugin_name }}", "build", "myimage"),
-#     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-#     (),
-# ))
 
-# To pull/push an image with `tutor images pull myimage` and `tutor images push myimage`, write:
-# hooks.Filters.IMAGES_PULL.add_item((
-#     "myimage",
-#     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-# ))
+# Images to be built by `tutor images build`.
+# Each item is a quadruple in the form:
+#     ("<tutor_image_name>", ("path", "to", "build", "dir"), "<docker_image_tag>", "<build_args>")
+hooks.Filters.IMAGES_BUILD.add_items(
+    [
+        # To build `myimage` with `tutor images build myimage`,
+        # you would add a Dockerfile to templates/{{ cookiecutter.plugin_name }}/build/myimage,
+        # and then write:
+        # (
+        #     "myimage",
+        #     ("plugins", "{{ cookiecutter.plugin_name }}", "build", "myimage"),
+        #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
+        #     (),
+        # ),
+    ]
+)
 
-# hooks.Filters.IMAGES_PUSH.add_item((
-#     "myimage",
-#     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-# ))
+
+# Images to be pulled as part of `tutor images pull`.
+# Each item is a pair in the form:
+#     ("<tutor_image_name>", "<docker_image_tag>")
+hooks.Filters.IMAGES_PULL.add_items(
+    [
+        # To pull `myimage` with `tutor images pull myimage`, you would write:
+        # (
+        #     "myimage",
+        #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
+        # ),
+    ]
+)
+
+
+# Images to be pushed as part of `tutor images push`.
+# Each item is a pair in the form:
+#     ("<tutor_image_name>", "<docker_image_tag>")
+hooks.Filters.IMAGES_PUSH.add_items(
+    [
+        # To push `myimage` with `tutor images push myimage`, you would write:
+        # (
+        #     "myimage",
+        #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
+        # ),
+    ]
+)
 
 
 ########################################
@@ -118,3 +165,68 @@ for path in glob(
 ):
     with open(path, encoding="utf-8") as patch_file:
         hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
+
+
+########################################
+# CUSTOM JOBS (a.k.a. "do-commands")
+########################################
+
+# A job is a set of tasks, each of which run inside a certain container.
+# Jobs are invoked using the `do` command, for example: `tutor local do importdemocourse`.
+# A few jobs are built in to Tutor, such as `init` and `createuser`.
+# You can also add your own custom jobs:
+
+# To add a custom job, define a Click command that returns a list of tasks,
+# where each task is a pair in the form ("<service>", "<shell_command>").
+# For example:
+@click.command()
+@click.option("-n", "--name", default="plugin developer")
+def say_hi(name: str) -> list[tuple[str, str]]:
+    """
+    An example job that just prints 'hello' from within both LMS and CMS.
+    """
+    return [
+        ("lms", f"echo 'Hello from LMS, {name}!'"),
+        ("cms", f"echo 'Hello from CMS, {name}!'"),
+    ]
+
+
+# Then, add the command function to CLI_DO_COMMANDS:
+hooks.Filters.CLI_DO_COMMANDS.add_item(say_hi)
+#
+# Now, you can run your job like this:
+#   $ tutor local do say-hi --name="{{ cookiecutter.author }}"
+
+
+#######################################
+# CUSTOM CLI COMMANDS
+#######################################
+
+# Your plugin can also add custom commands directly to the Tutor CLI.
+# These commands are run directly on the user's host computer
+# (unlike jobs, which are run in containers).
+
+# To define a command group for your plugin, define a Click group and then
+# add it to CLI_COMMANDS:
+
+
+@click.group()
+def {{ cookiecutter.plugin_name }}() -> None:
+    pass
+
+
+hooks.Filters.CLI_COMMANDS.add_item({{ cookiecutter.plugin_name }})
+
+# Then, add subcommands directly to the Click group, for example:
+
+
+@{{ cookiecutter.plugin_name }}.command()
+def example_command() -> None:
+    """
+    This is helptext for an example command.
+    """
+    print("You've run an example command.")
+
+
+# And run:
+#   $ tutor {{ cookiecutter.plugin_name }} example-command
