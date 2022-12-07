@@ -62,17 +62,18 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 #     ("plugins", "{{ cookiecutter.plugin_name }}", "build", "myimage"),
 #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
 #     (),
-# )
+# ))
 
 # To pull/push an image with `tutor images pull myimage` and `tutor images push myimage`, write:
 # hooks.Filters.IMAGES_PULL.add_item((
 #     "myimage",
 #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-# )
+# ))
+
 # hooks.Filters.IMAGES_PUSH.add_item((
 #     "myimage",
 #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-# )
+# ))
 
 
 ########################################
