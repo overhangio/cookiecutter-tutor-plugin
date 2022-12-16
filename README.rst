@@ -49,18 +49,24 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
 
   - Replace the ``hooks`` object:
 
+    - Declare a "MY_INIT_TASKS" variable::
+
+            MY_INIT_TASKS = []
+
     - If present, replace each "myservice" item in "init" by::
 
-            hooks.Filters.COMMANDS_INIT.add_item((
+            MY_INIT_TASKS.append((
                 "myservice",
                 ("yourplugin", "tasks", "myservice", "init"),
+                10,  # default task priority
             ))
 
     - If present, replace each "myservice" item in "pre-init" by::
 
-            hooks.Filters.COMMANDS_PRE_INIT.add_item((
+            MY_INIT_TASKS.append((
                 "myservice",
                 ("yourplugin", "tasks", "myservice", "pre-init"),
+                1,  # high task priority (for pre-initialization)
             ))
 
     - If present, replace each ``"myimage": "myimage:latest"`` key/value in "build-image" by::
@@ -122,6 +128,16 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
             ]
         )
         hooks.Filters.CONFIG_OVERRIDES.add_items(list(config.get("overrides", {}).items()))
+        # For each task added to MY_INIT_TASKS, load the task template and add it to the
+        # CLI_DO_INIT_TASKS filter, which tells Tutor to run it as part of the `init` job.
+        for service, template_path, priority in MY_INIT_TASKS:
+            full_path: str = pkg_resources.resource_filename(
+                "tutoryourplugin", os.path.join("templates", *template_path)
+            )
+            with open(full_path, encoding="utf-8") as init_task_file:
+                init_task: str = init_task_file.read()
+            hooks.Filters.CLI_DO_INIT_TASKS.add_item((service, init_task), priority=priority)
+
 
   - In case the plugin has custom commands to be available from CLI, you will need to implement the CLI_COMMANDS filter according
     to `Tutor's reference documentation <https://docs.tutor.overhang.io/reference/api/hooks/consts.html#tutor.hooks.Filters.CLI_COMMANDS>`__.
