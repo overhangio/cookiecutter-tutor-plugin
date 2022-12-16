@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import os.path
-import shlex
 from glob import glob
 
 import click
@@ -64,11 +63,11 @@ MY_INIT_TASKS: list[tuple[str, tuple[str, ...]]] = [
 # and add it to the CLI_DO_INIT_TASKS filter, which tells Tutor to
 # run it as part of the `init` job.
 for service, template_path in MY_INIT_TASKS:
-    full_path = pkg_resources.resource_filename(
+    full_path: str = pkg_resources.resource_filename(
         "{{ cookiecutter.module_name }}", os.path.join("templates", *template_path)
     )
     with open(full_path, encoding="utf-8") as init_task_file:
-        init_task = shlex.join(["bash", "-c", init_task_file.read()])
+        init_task: str = init_task_file.read()
     hooks.Filters.CLI_DO_INIT_TASKS.add_item((service, init_task))
 
 
