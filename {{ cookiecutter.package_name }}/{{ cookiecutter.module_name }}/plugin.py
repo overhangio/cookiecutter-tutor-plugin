@@ -30,7 +30,7 @@ hooks.Filters.CONFIG_UNIQUE.add_items(
         # Each new setting is a pair: (setting_name, unique_generated_value).
         # Prefix your setting names with '{{ cookiecutter.plugin_name|upper|replace('-', '_') }}_'.
         # For example:
-        # ("{{ cookiecutter.plugin_name|upper|replace('-', '_') }}_SECRET_KEY", "{{ '{{' }} 24|random_string {{ '}}' }}"),
+        ### ("{{ cookiecutter.plugin_name|upper|replace('-', '_') }}_SECRET_KEY", "{{ '{{' }} 24|random_string {{ '}}' }}"),
     ]
 )
 
@@ -39,7 +39,7 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
         # Danger zone!
         # Add values to override settings from Tutor core or other plugins here.
         # Each override is a pair: (setting_name, new_value). For example:
-        # ("PLATFORM_NAME", "My platform"),
+        ### ("PLATFORM_NAME", "My platform"),
     ]
 )
 
@@ -49,13 +49,14 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 ########################################
 
 # To add a custom initialization task, create a bash script template under:
-#   {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/jobs/init/
+# {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/jobs/init/
 # and then add it to the MY_INIT_TASKS list. Each task is in the format:
-#   ("<service>", ("<path>", "<to>", "<script>", "<template>"))
+# ("<service>", ("<path>", "<to>", "<script>", "<template>"))
 MY_INIT_TASKS: list[tuple[str, tuple[str, ...]]] = [
-    ("lms", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "lms.sh")),
-    ("cms", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "cms.sh")),
-    ("mysql", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "mysql.sh")),
+    # For example, to add LMS initialization steps, you could add the script template at:
+    # {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/jobs/init/lms.sh
+    # And then add the line:
+    ### ("lms", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "lms.sh")),
 ]
 
 
@@ -84,12 +85,12 @@ hooks.Filters.IMAGES_BUILD.add_items(
         # To build `myimage` with `tutor images build myimage`,
         # you would add a Dockerfile to templates/{{ cookiecutter.plugin_name }}/build/myimage,
         # and then write:
-        # (
-        #     "myimage",
-        #     ("plugins", "{{ cookiecutter.plugin_name }}", "build", "myimage"),
-        #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-        #     (),
-        # ),
+        ### (
+        ###     "myimage",
+        ###     ("plugins", "{{ cookiecutter.plugin_name }}", "build", "myimage"),
+        ###     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
+        ###     (),
+        ### ),
     ]
 )
 
@@ -100,10 +101,10 @@ hooks.Filters.IMAGES_BUILD.add_items(
 hooks.Filters.IMAGES_PULL.add_items(
     [
         # To pull `myimage` with `tutor images pull myimage`, you would write:
-        # (
-        #     "myimage",
-        #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-        # ),
+        ### (
+        ###     "myimage",
+        ###     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
+        ### ),
     ]
 )
 
@@ -114,10 +115,10 @@ hooks.Filters.IMAGES_PULL.add_items(
 hooks.Filters.IMAGES_PUSH.add_items(
     [
         # To push `myimage` with `tutor images push myimage`, you would write:
-        # (
-        #     "myimage",
-        #     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
-        # ),
+        ### (
+        ###     "myimage",
+        ###     "docker.io/myimage:{{ '{{' }} {{ cookiecutter.plugin_name|upper|replace('-', '_') }}_VERSION {{ '}}' }}",
+        ### ),
     ]
 )
 
@@ -178,21 +179,21 @@ for path in glob(
 # To add a custom job, define a Click command that returns a list of tasks,
 # where each task is a pair in the form ("<service>", "<shell_command>").
 # For example:
-@click.command()
-@click.option("-n", "--name", default="plugin developer")
-def say_hi(name: str) -> list[tuple[str, str]]:
-    """
-    An example job that just prints 'hello' from within both LMS and CMS.
-    """
-    return [
-        ("lms", f"echo 'Hello from LMS, {name}!'"),
-        ("cms", f"echo 'Hello from CMS, {name}!'"),
-    ]
+### @click.command()
+### @click.option("-n", "--name", default="plugin developer")
+### def say_hi(name: str) -> list[tuple[str, str]]:
+###     """
+###     An example job that just prints 'hello' from within both LMS and CMS.
+###     """
+###     return [
+###         ("lms", f"echo 'Hello from LMS, {name}!'"),
+###         ("cms", f"echo 'Hello from CMS, {name}!'"),
+###     ]
 
 
 # Then, add the command function to CLI_DO_COMMANDS:
-hooks.Filters.CLI_DO_COMMANDS.add_item(say_hi)
-#
+## hooks.Filters.CLI_DO_COMMANDS.add_item(say_hi)
+
 # Now, you can run your job like this:
 #   $ tutor local do say-hi --name="{{ cookiecutter.author }}"
 
@@ -205,27 +206,28 @@ hooks.Filters.CLI_DO_COMMANDS.add_item(say_hi)
 # These commands are run directly on the user's host computer
 # (unlike jobs, which are run in containers).
 
-# To define a command group for your plugin, define a Click group and then
-# add it to CLI_COMMANDS:
+# To define a command group for your plugin, you would define a Click
+# group and then add it to CLI_COMMANDS:
 
 
-@click.group()
-def {{ cookiecutter.plugin_name }}() -> None:
-    pass
+### @click.group()
+### def {{ cookiecutter.plugin_name }}() -> None:
+###     pass
+### 
+### 
+### hooks.Filters.CLI_COMMANDS.add_item({{ cookiecutter.plugin_name }})
 
 
-hooks.Filters.CLI_COMMANDS.add_item({{ cookiecutter.plugin_name }})
-
-# Then, add subcommands directly to the Click group, for example:
+# Then, you would add subcommands directly to the Click group, for example:
 
 
-@{{ cookiecutter.plugin_name }}.command()
-def example_command() -> None:
-    """
-    This is helptext for an example command.
-    """
-    print("You've run an example command.")
+### @{{ cookiecutter.plugin_name }}.command()
+### def example_command() -> None:
+###     """
+###     This is helptext for an example command.
+###     """
+###     print("You've run an example command.")
 
 
-# And run:
+# This would allow you to run:
 #   $ tutor {{ cookiecutter.plugin_name }} example-command
