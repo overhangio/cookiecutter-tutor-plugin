@@ -1,7 +1,7 @@
 Tutor plugin cookiecutter 🍪
 ============================
 
-This is a `cookiecutter <https://cookiecutter.readthedocs.io/en/latest/tutorial2.html>`__ for getting started with `Tutor plugins <https://docs.tutor.overhang.io/plugins.html>`__. It will generate a base scaffold for an empty tutor plugin that does, well, nothing.
+This is a `cookiecutter <https://cookiecutter.readthedocs.io/en/latest/tutorials/tutorial2.html>`__ for getting started with `Tutor plugins <https://docs.tutor.overhang.io/plugins/index.html>`__. It will generate a base scaffold for an empty tutor plugin that does, well, nothing.
 
 Requirements
 ------------
