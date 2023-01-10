@@ -213,8 +213,8 @@ for path in glob(
 ### @click.group()
 ### def {{ cookiecutter.plugin_name }}() -> None:
 ###     pass
-### 
-### 
+
+
 ### hooks.Filters.CLI_COMMANDS.add_item({{ cookiecutter.plugin_name }})
 
 
