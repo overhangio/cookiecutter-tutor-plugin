@@ -49,14 +49,14 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 ########################################
 
 # To add a custom initialization task, create a bash script template under:
-# {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/jobs/init/
+# {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/tasks/
 # and then add it to the MY_INIT_TASKS list. Each task is in the format:
 # ("<service>", ("<path>", "<to>", "<script>", "<template>"))
 MY_INIT_TASKS: list[tuple[str, tuple[str, ...]]] = [
     # For example, to add LMS initialization steps, you could add the script template at:
-    # {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/jobs/init/lms.sh
+    # {{ cookiecutter.module_name }}/templates/{{ cookiecutter.plugin_name }}/tasks/lms/init.sh
     # And then add the line:
-    ### ("lms", ("{{ cookiecutter.plugin_name }}", "jobs", "init", "lms.sh")),
+    ### ("lms", ("{{ cookiecutter.plugin_name }}", "tasks", "lms", "init.sh")),
 ]
 
 
