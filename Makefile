@@ -16,10 +16,10 @@ generate-plugin-for-tests:  ## Generate a plugin using the cookiecutter defaults
 	# The cookiecutter has many example code blocks prefixed with '### '.
 	# To help ensure that the example code would work if the user uncommented it,
 	# we remove the all '### ' occurances before running tests.
-	sed -i 's/### //' tutor-contrib-myplugin/tutormyplugin/plugin.py 
+	sed -i 's/### //' tutor-contrib-myplugin/tutormyplugin/plugin.py
 	# We must also create this init task template, which the cookiecutter
 	# doesn't generate because its usage in plugin.py is commented out.
-	touch tutor-contrib-myplugin/tutormyplugin/templates/myplugin/jobs/init/lms.sh
+	touch tutor-contrib-myplugin/tutormyplugin/templates/myplugin/tasks/lms/init.sh
 	@echo "$(MSG)Plugin generated.$(END_MSG)"
 
 test-plugin: test-plugin-quality test-plugin-install  ## Test the default plugin.
