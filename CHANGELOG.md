@@ -10,4 +10,5 @@ Please respect the following instructions:
 
 ## 2023-11-06
 
-- [Improvement] Start keeping a changelog (@kdmccormick).
+- [Improvement] Recommend putting job scripts under "tasks" directory instead of "jobs", for consistency with official plugin (by @CodeWithEmad).
+- [Improvement] Start keeping a changelog (by @kdmccormick).
