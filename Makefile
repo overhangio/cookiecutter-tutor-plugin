@@ -37,6 +37,12 @@ test-plugin-install:  ## Smoke-test that the default plugin works with Tutor.
 	tutor myplugin example-command # This should just print a line and exit 0.
 	@echo "$(MSG)It seems like the generated plugin works with Tutor.$(END_MSG)"
 
+changelog-entry: ## Create a new changelog entry.
+	scriv create
+
+changelog: ## Collect changelog entries in the CHANGELOG.md file.
+	scriv collect
+
 ESCAPE = 
 help: ## Print this help
 	@grep -E '^([a-zA-Z_-]+:.*?## .*|######* .+)$$' Makefile \
