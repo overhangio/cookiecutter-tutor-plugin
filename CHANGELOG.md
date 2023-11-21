@@ -8,6 +8,10 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2023-11-21
+
+- [Improvement] Mark compatibility with python 3.11 and 3.12 (by @CodeWithEmad).
+
 ## 2023-11-06
 
 - [Improvement] Recommend putting job scripts under "tasks" directory instead of "jobs", for consistency with official plugins (by @CodeWithEmad).
