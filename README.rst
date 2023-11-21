@@ -159,7 +159,7 @@ The plugin API was upgraded from v0 to v1 in Tutor v13.2.0. This cookiecutter ge
 Troubleshooting
 ---------------
 
-This Tutor plugin template is maintained by `Kyle McCormick <https://github.com/kdmccormick>`_ from `Axim Collaborative <https://axim.org>`_. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`_.
+This Tutor plugin template is maintained by `Emad Rad <https://github.com/CodeWithEmad>`_ from `edSPIRIT <https://edspirit.com>`_. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`_.
 
 Do you need help using this template? See the `troubleshooting <https://docs.tutor.overhang.io/troubleshooting.html>`__ section from the Tutor documentation.
 
