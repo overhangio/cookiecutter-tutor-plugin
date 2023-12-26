@@ -8,6 +8,16 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2024-01-01
+
+- [Improvement] Happy New Year!
+  - Cookiecutter hooks to check input data validation.
+  - Various licenses support.
+  - New documentation format.
+  - GitHub Actions for new plugins.
+  - `dev` mode added to extra entries.
+  (by @CodeWithEmad).
+
 ## 2023-11-21
 
 - [Improvement] Mark compatibility with python 3.11 and 3.12 (by @CodeWithEmad).
