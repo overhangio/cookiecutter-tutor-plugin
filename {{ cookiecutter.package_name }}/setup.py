@@ -38,6 +38,7 @@ setup(
     author_email="{{ cookiecutter.email }}",
     description="{{ cookiecutter.description }}",
     long_description=load_readme(),
+    long_description_content_type="text/x-rst",
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
     python_requires=">=3.7",
