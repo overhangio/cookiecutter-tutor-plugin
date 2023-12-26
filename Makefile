@@ -33,7 +33,6 @@ test-plugin-install:  ## Smoke-test that the default plugin works with Tutor.
 	@echo "$(MSG)Testing that the generated plugin can be installed, enabled, and used in Tutor...$(END_MSG)"
 	pip install -e tutor-contrib-myplugin
 	tutor plugins enable myplugin
-	tutor config save
 	tutor myplugin example-command # This should just print a line and exit 0.
 	@echo "$(MSG)It seems like the generated plugin works with Tutor.$(END_MSG)"
 
