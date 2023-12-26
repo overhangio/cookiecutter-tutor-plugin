@@ -3,13 +3,26 @@
   "package_name": "tutor-contrib-{{ cookiecutter.plugin_name.lower() | trim }}",
   "module_name": "tutor{{ cookiecutter.plugin_name.lower().replace('-', '_') | trim }}",
   "description": "{{ cookiecutter.plugin_name}} plugin for Tutor",
-  "git_username": "myusername",
-  "git_repo": "https://github.com/{{ cookiecutter.git_username | trim }}/{{ cookiecutter.package_name | trim }}",
+  "git_repo": "https://github.com/myusername/{{ cookiecutter.package_name | trim }}",
   "author": "John Doe",
   "email": "john.doe@example.com",
   "tutor_version": [17, 16, 15, 14, 13],
   "version": "{{ cookiecutter.tutor_version }}.0.0",
   "license": ["AGPLv3", "Apache 2.0", "BSDv3", "MIT", "Not open source"],
   "init_git": "y",
-  "include_ci": "y"
+  "include_ci": "y",
+  "__prompts__": {
+    "plugin_name": "Plugin name",
+    "package_name": "Package name",
+    "module_name": "Module name",
+    "description": "Short description about the plugin",
+    "git_repo": "Git repository URL",
+    "author": "Author's full name",
+    "email": "Author's email",
+    "tutor_version": "Tutor minimal required version",
+    "version": "Plugin version",
+    "license": "Package license",
+    "init_git": "Initialize a git repository (y/n)",
+    "include_ci": "Include continuous integration files for GitHub CI (y/n)"
+  }
 }
