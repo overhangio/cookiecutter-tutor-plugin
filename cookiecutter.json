@@ -1,8 +1,15 @@
 {
   "plugin_name": "myplugin",
-  "package_name": "tutor-contrib-{{ cookiecutter.plugin_name }}",
-  "module_name": "tutor{{ cookiecutter.plugin_name.lower().replace('-', '_') }}",
-  "git_repo": "https://github.com/myusername/{{cookiecutter.package_name }}",
+  "package_name": "tutor-contrib-{{ cookiecutter.plugin_name.lower() | trim }}",
+  "module_name": "tutor{{ cookiecutter.plugin_name.lower().replace('-', '_') | trim }}",
+  "description": "{{ cookiecutter.plugin_name}} plugin for Tutor",
+  "git_username": "myusername",
+  "git_repo": "https://github.com/{{ cookiecutter.git_username | trim }}/{{ cookiecutter.package_name | trim }}",
   "author": "John Doe",
-  "license": "AGPLv3"
+  "email": "john.doe@example.com",
+  "tutor_version": [17, 16, 15, 14, 13],
+  "version": "{{ cookiecutter.tutor_version }}.0.0",
+  "license": ["AGPLv3", "Apache 2.0", "BSDv3", "MIT", "Not open source"],
+  "init_git": "y",
+  "include_ci": "y"
 }

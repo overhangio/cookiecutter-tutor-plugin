@@ -35,12 +35,18 @@ setup(
     },
     license="{{ cookiecutter.license }}",
     author="{{ cookiecutter.author }}",
-    description="{{ cookiecutter.plugin_name}} plugin for Tutor",
+    author_email="{{ cookiecutter.email }}",
+    description="{{ cookiecutter.description }}",
     long_description=load_readme(),
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
     python_requires=">=3.7",
-    install_requires=["tutor"],
+    install_requires=["tutor>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0"],
+    extras_require={
+        "dev": [
+            "tutor[dev]>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0",
+        ]
+    },
     entry_points={
         "tutor.plugin.v1": [
             "{{ cookiecutter.plugin_name }} = {{ cookiecutter.module_name }}.plugin"
@@ -49,7 +55,17 @@ setup(
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
+        {%- if cookiecutter.license == "AGPLv3" %}
         "License :: OSI Approved :: GNU Affero General Public License v3",
+        {%- elif cookiecutter.license == "Apache 2.0" %}
+        "License :: OSI Approved :: Apache Software License",
+        {%- elif cookiecutter.license == "BSDv3" %}
+         "License :: OSI Approved :: BSD License",
+        {%- elif cookiecutter.license == "MIT" %}
+        "License :: OSI Approved :: MIT License",
+        {%- elif cookiecutter.license == "Not open source" %}
+        "License :: Other/Proprietary License",
+        {%- endif %}
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",
