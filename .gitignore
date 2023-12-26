@@ -1,1 +1,2 @@
-/tutor-contrib-myplugin
+/tutor-contrib-*
+__pycache__
