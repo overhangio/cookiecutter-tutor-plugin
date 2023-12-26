@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-import os.path
 from glob import glob
 
 import click
@@ -175,6 +174,7 @@ for path in glob(
 # Jobs are invoked using the `do` command, for example: `tutor local do importdemocourse`.
 # A few jobs are built in to Tutor, such as `init` and `createuser`.
 # You can also add your own custom jobs:
+
 
 # To add a custom job, define a Click command that returns a list of tasks,
 # where each task is a pair in the form ("<service>", "<shell_command>").
