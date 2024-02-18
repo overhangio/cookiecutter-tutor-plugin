@@ -4,7 +4,7 @@ import os
 from glob import glob
 
 import click
-import pkg_resources
+import importlib_resources
 from tutor import hooks
 
 from .__about__ import __version__
@@ -63,8 +63,9 @@ MY_INIT_TASKS: list[tuple[str, tuple[str, ...]]] = [
 # and add it to the CLI_DO_INIT_TASKS filter, which tells Tutor to
 # run it as part of the `init` job.
 for service, template_path in MY_INIT_TASKS:
-    full_path: str = pkg_resources.resource_filename(
-        "{{ cookiecutter.module_name }}", os.path.join("templates", *template_path)
+    full_path: str = str(
+        importlib_resources.files("{{ cookiecutter.module_name }}")
+        / os.path.join("templates", *template_path)
     )
     with open(full_path, encoding="utf-8") as init_task_file:
         init_task: str = init_task_file.read()
@@ -131,7 +132,7 @@ hooks.Filters.IMAGES_PUSH.add_items(
 hooks.Filters.ENV_TEMPLATE_ROOTS.add_items(
     # Root paths for template files, relative to the project root.
     [
-        pkg_resources.resource_filename("{{ cookiecutter.module_name }}", "templates"),
+        str(importlib_resources.files("{{ cookiecutter.module_name }}") / "templates"),
     ]
 )
 
@@ -156,12 +157,7 @@ hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
 
 # For each file in {{ cookiecutter.module_name }}/patches,
 # apply a patch based on the file's name and contents.
-for path in glob(
-    os.path.join(
-        pkg_resources.resource_filename("{{ cookiecutter.module_name }}", "patches"),
-        "*",
-    )
-):
+for path in glob(str(importlib_resources.files("{{ cookiecutter.module_name }}") / "patches" / "*")):
     with open(path, encoding="utf-8") as patch_file:
         hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
 
