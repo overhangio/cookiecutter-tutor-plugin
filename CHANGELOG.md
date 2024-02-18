@@ -11,6 +11,7 @@ Please respect the following instructions:
 ## 2024-01-01
 
 - [Improvement] Happy New Year!
+  - Fix compatibility issue with Python 3.12 by removing dependency on `pkg_resources`.
   - Cookiecutter hooks to check input data validation.
   - Various licenses support.
   - New documentation format.

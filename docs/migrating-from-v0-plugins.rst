@@ -83,7 +83,7 @@ The plugin API was upgraded from ``v0`` to ``v1`` in `Tutor v13.2.0 <https://git
         ####### Boilerplate code
         # Add the "templates" folder as a template root
         hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
-            pkg_resources.resource_filename("tutoryourplugin", "templates")
+            str(importlib_resources.files("tutoryourplugin") / "templates")
         )
         # Render the "build" and "apps" folders
         hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
@@ -94,10 +94,7 @@ The plugin API was upgraded from ``v0`` to ``v1`` in `Tutor v13.2.0 <https://git
         )
         # Load patches from files
         for path in glob(
-            os.path.join(
-                pkg_resources.resource_filename("tutoryourplugin", "patches"),
-                "*",
-            )
+            str(importlib_resources.files("tutoryourplugin") / "patches" / "*")
         ):
             with open(path, encoding="utf-8") as patch_file:
                 hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
@@ -118,8 +115,8 @@ The plugin API was upgraded from ``v0`` to ``v1`` in `Tutor v13.2.0 <https://git
         # For each task added to MY_INIT_TASKS, load the task template and add it to the
         # CLI_DO_INIT_TASKS filter, which tells Tutor to run it as part of the `init` job.
         for service, template_path, priority in MY_INIT_TASKS:
-            full_path: str = pkg_resources.resource_filename(
-                "tutoryourplugin", os.path.join("templates", *template_path)
+            full_path: str = str(importlib_resources.files(
+                "tutoryourplugin") / os.path.join("templates", *template_path)
             )
             with open(full_path, encoding="utf-8") as init_task_file:
                 init_task: str = init_task_file.read()
