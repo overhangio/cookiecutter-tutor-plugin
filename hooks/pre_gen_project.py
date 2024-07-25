@@ -12,6 +12,8 @@ import sys
 {{ cookiecutter.update({ "module_name": cookiecutter.module_name | trim }) }}
 {{ cookiecutter.update({ "email": cookiecutter.email | trim }) }}
 {{ cookiecutter.update({ "tutor_version": cookiecutter.tutor_version | int }) }}
+{{ cookiecutter.update({ "init_git": cookiecutter.init_git | lower }) }}
+{{ cookiecutter.update({ "include_ci": cookiecutter.include_ci | lower }) }}
 """
 
 TERMINATOR = "\x1b[0m"
