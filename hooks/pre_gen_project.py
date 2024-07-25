@@ -56,10 +56,9 @@ def check_repo_is_github():
     ):
         print(
             WARNING
-            + "Provided repository URL is not associated with a GitHub repository! GitHub CI files won't be generated."
+            + "Provided repository URL is not associated with a GitHub repository!"
             + TERMINATOR
         )
-        "{{ cookiecutter.update({ 'include_ci': 'n' }) }}"
 
 
 if __name__ == "__main__":
