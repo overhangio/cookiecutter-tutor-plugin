@@ -41,7 +41,7 @@ setup(
     long_description_content_type="text/x-rst",
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     install_requires=["tutor>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0"],
     extras_require={
         "dev": [
