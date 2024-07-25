@@ -8,6 +8,11 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2024-07-25
+
+- [Improvement] Plugin's generated `README.rst` file is now more dynamic and compatibility for Python 3.7 is dropped (by @CodeWithEmad)
+- [Bugfix] `.github` directory creation issue resolved (by @CodeWithEmad)
+
 ## 2024-01-01
 
 - [Improvement] Happy New Year!
