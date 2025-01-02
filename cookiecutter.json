@@ -6,7 +6,7 @@
   "git_repo": "https://github.com/myusername/{{ cookiecutter.package_name | trim }}",
   "author": "John Doe",
   "email": "john.doe@example.com",
-  "tutor_version": [18, 17, 16, 15, 14, 13],
+  "tutor_version": [19, 18, 17, 16, 15, 14, 13],
   "version": "{{ cookiecutter.tutor_version }}.0.0",
   "license": ["AGPLv3", "Apache 2.0", "BSDv3", "MIT", "Not open source"],
   "init_git": "y",
