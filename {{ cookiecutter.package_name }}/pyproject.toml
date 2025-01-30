@@ -1,0 +1,72 @@
+# https://packaging.python.org/en/latest/tutorials/packaging-projects/
+# https://hatch.pypa.io/latest/config/build/
+
+[project]
+name = "{{ cookiecutter.package_name }}"
+description = "{{ cookiecutter.description }}"
+authors = [
+  { name = "{{ cookiecutter.author }}", email = "{{ cookiecutter.email }}" },
+]
+
+{%- if cookiecutter.license != "Not open source" %}
+license = {file = "LICENSE.txt"}
+{%- endif %}
+readme = {file = "README.rst", content-type = "text/x-rst"}
+requires-python = ">= 3.9"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    {%- if cookiecutter.license == "AGPLv3" %}
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    {%- elif cookiecutter.license == "Apache 2.0" %}
+    "License :: OSI Approved :: Apache Software License",
+    {%- elif cookiecutter.license == "BSDv3" %}
+        "License :: OSI Approved :: BSD License",
+    {%- elif cookiecutter.license == "MIT" %}
+    "License :: OSI Approved :: MIT License",
+    {%- elif cookiecutter.license == "Not open source" %}
+    "License :: Other/Proprietary License",
+    {%- endif %}
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+
+]
+dependencies = [
+    "tutor>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0",
+]
+optional-dependencies = { dev = ["tutor[dev]>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0"] }
+
+# These fields will be set by hatch_build.py
+dynamic = ["version"]
+
+# https://packaging.python.org/en/latest/specifications/well-known-project-urls/#well-known-labels
+[project.urls]
+Documentation = "{{ cookiecutter.git_repo }}#readme"
+Issues = "{{ cookiecutter.git_repo }}/issues"
+Source = "{{ cookiecutter.git_repo }}"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# hatch-specific configuration
+[tool.hatch.metadata.hooks.custom]
+path = ".hatch_build.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["{{ cookiecutter.module_name }}"]
+
+[tool.hatch.build.targets.sdist]
+# Disable strict naming, otherwise twine is not able to detect name/version
+strict-naming = false
+include = [ "/{{ cookiecutter.module_name }}"]
+exclude = ["tests*"]
+
+[project.entry-points."tutor.plugin.v1"]
+{{ cookiecutter.plugin_name }} = "{{ cookiecutter.module_name }}.plugin"
