@@ -34,7 +34,6 @@ Once you have generated your plugin, you can start using it right away (even if 
 Migrating from v0 plugins
 *************************
 
-
 The plugin API was upgraded from ``v0`` to ``v1`` in `Tutor v13.2.0`_.
 This cookiecutter generates plugin scaffolds for ``v1``. The ``v0`` API will be supported for some time,
 but you are encouraged to upgrade your plugins. To upgrade a ``v0`` plugin that was generated previously
