@@ -8,6 +8,14 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2025-01-30
+
+- [Improvement] Migrate from `setup.py` (setuptools) to `pyproject.toml` (hatch) (by @CodeWithEmad).
+
+## 2025-01-03
+
+- [Improvement] Added support for tutor v19 (by @Danyal-Faheem).
+
 ## 2024-07-25
 
 - [Improvement] Plugin's generated `README.rst` file is now more dynamic and compatibility for Python 3.7 is dropped (by @CodeWithEmad)
