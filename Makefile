@@ -22,7 +22,7 @@ generate-plugin-for-tests:  ## Generate a plugin using the cookiecutter defaults
 	touch tutor-contrib-myplugin/tutormyplugin/templates/myplugin/tasks/lms/init.sh
 	@echo "$(MSG)Plugin generated.$(END_MSG)"
 
-test-plugin: test-plugin-quality test-plugin-install  ## Test the default plugin.
+test-plugin: test-plugin-install test-plugin-quality ## Test the default plugin.
 
 test-plugin-quality:  ## Run static checks on the default plugin.
 	@echo "$(MSG)Running static checks on the generated plugin...$(END_MSG)"
@@ -31,7 +31,7 @@ test-plugin-quality:  ## Run static checks on the default plugin.
 
 test-plugin-install:  ## Smoke-test that the default plugin works with Tutor.
 	@echo "$(MSG)Testing that the generated plugin can be installed, enabled, and used in Tutor...$(END_MSG)"
-	pip install -e tutor-contrib-myplugin
+	pip install -e "tutor-contrib-myplugin[dev]"
 	tutor plugins enable myplugin
 	tutor myplugin example-command # This should just print a line and exit 0.
 	@echo "$(MSG)It seems like the generated plugin works with Tutor.$(END_MSG)"
