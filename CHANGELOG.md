@@ -11,6 +11,7 @@ Please respect the following instructions:
 ## 2025-02-18
 
 - [Bugfix] Display author name and email separately when running `pip show plugin`. (by @Danyal-Faheem)
+- [Bugfix] Display license names as specified in the SPDX license list instead of the entire file when running `pip show plugin`. (by @Danyal-Faheem)
 
 ## 2025-01-30
 
