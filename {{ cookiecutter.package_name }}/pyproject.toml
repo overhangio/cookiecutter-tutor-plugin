@@ -5,7 +5,8 @@
 name = "{{ cookiecutter.package_name }}"
 description = "{{ cookiecutter.description }}"
 authors = [
-  { name = "{{ cookiecutter.author }}", email = "{{ cookiecutter.email }}" },
+  { name = "{{ cookiecutter.author }}"}, 
+  { email = "{{ cookiecutter.email }}" },
 ]
 
 {%- if cookiecutter.license != "Not open source" %}
