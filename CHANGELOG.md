@@ -8,6 +8,10 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2025-02-18
+
+- [Bugfix] Display author name and email separately when running `pip show plugin`. (by @Danyal-Faheem)
+
 ## 2025-01-30
 
 - [Improvement] Migrate from `setup.py` (setuptools) to `pyproject.toml` (hatch) (by @CodeWithEmad).
