@@ -9,9 +9,18 @@ authors = [
   { email = "{{ cookiecutter.email }}" },
 ]
 
-{%- if cookiecutter.license != "Not open source" %}
-license = {file = "LICENSE.txt"}
+{%- if cookiecutter.license == "AGPLv3" %}
+license = { text = "AGPL-3.0-only" }
+{%- elif cookiecutter.license == "Apache 2.0" %}
+license = { text = "Apache-2.0" }
+{%- elif cookiecutter.license == "BSDv3" %}
+license = { text = "BSD-3-Clause" }
+{%- elif cookiecutter.license == "MIT" %}
+license = { text = "MIT" }
+{%- elif cookiecutter.license == "Not open source" %}
+license = { text = "Proprietary" }
 {%- endif %}
+
 readme = {file = "README.rst", content-type = "text/x-rst"}
 requires-python = ">= 3.9"
 classifiers = [
