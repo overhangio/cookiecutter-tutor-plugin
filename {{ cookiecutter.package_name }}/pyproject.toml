@@ -75,7 +75,7 @@ packages = ["{{ cookiecutter.module_name }}"]
 [tool.hatch.build.targets.sdist]
 # Disable strict naming, otherwise twine is not able to detect name/version
 strict-naming = false
-include = [ "/{{ cookiecutter.module_name }}"]
+include = [ "/{{ cookiecutter.module_name }}", ".hatch_build.py"]
 exclude = ["tests*"]
 
 [project.entry-points."tutor.plugin.v1"]
