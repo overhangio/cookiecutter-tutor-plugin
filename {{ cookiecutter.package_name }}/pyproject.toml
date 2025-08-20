@@ -5,7 +5,7 @@
 name = "{{ cookiecutter.package_name }}"
 description = "{{ cookiecutter.description }}"
 authors = [
-  { name = "{{ cookiecutter.author }}"}, 
+  { name = "{{ cookiecutter.author }}"},
   { email = "{{ cookiecutter.email }}" },
 ]
 
@@ -55,6 +55,9 @@ optional-dependencies = { dev = ["tutor[dev]>={{ cookiecutter.tutor_version }}.0
 # These fields will be set by hatch_build.py
 dynamic = ["version"]
 
+[tool.hatch.version]
+path = "{{ cookiecutter.module_name }}/__about__.py"
+
 # https://packaging.python.org/en/latest/specifications/well-known-project-urls/#well-known-labels
 [project.urls]
 Documentation = "{{ cookiecutter.git_repo }}#readme"
@@ -65,17 +68,13 @@ Source = "{{ cookiecutter.git_repo }}"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-# hatch-specific configuration
-[tool.hatch.metadata.hooks.custom]
-path = ".hatch_build.py"
-
 [tool.hatch.build.targets.wheel]
 packages = ["{{ cookiecutter.module_name }}"]
 
 [tool.hatch.build.targets.sdist]
 # Disable strict naming, otherwise twine is not able to detect name/version
 strict-naming = false
-include = [ "/{{ cookiecutter.module_name }}", ".hatch_build.py"]
+include = [ "/{{ cookiecutter.module_name }}"]
 exclude = ["tests*"]
 
 [project.entry-points."tutor.plugin.v1"]
