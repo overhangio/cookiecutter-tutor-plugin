@@ -50,10 +50,15 @@ classifiers = [
 dependencies = [
     "tutor>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0",
 ]
-optional-dependencies = { dev = ["tutor[dev]>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0"] }
 
 # These fields will be set by hatch_build.py
 dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "tutor[dev]>={{ cookiecutter.tutor_version }}.0.0,<{{ cookiecutter.tutor_version + 1 }}.0.0",
+    "ruff",
+]
 
 [tool.hatch.version]
 path = "{{ cookiecutter.module_name }}/__about__.py"

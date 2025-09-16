@@ -8,6 +8,11 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2025-09-16
+
+- [Improvement] Migrate from pylint and black to ruff. (by @CodeWithEmad).
+- [Improvement] Added support for Tutor v20 (by @Danyal-Faheem).
+
 ## 2025-02-18
 
 - [Bugfix] Display author name and email separately when running `pip show plugin`. (by @Danyal-Faheem)
