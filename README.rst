@@ -45,13 +45,13 @@ with this cookiecutter, please follow the instructions in the `Migrating from v0
 Troubleshooting
 ***************
 
-This Tutor plugin template is maintained by `Emad Rad`_ from `edSPIRIT`_.
+This Tutor plugin template is maintained by `Emad Rad`_ from `Abstract Technology`_.
 Community support is available from the official `Open edX forum`_.
 
 Do you need help using this template? See the `troubleshooting`_ section from the Tutor documentation.
 
 .. _Emad Rad: https://github.com/CodeWithEmad
-.. _edSPIRIT: https://edspirit.com
+.. _Abstract Technology: https://abstract-technology.de
 .. _Open edX forum: https://discuss.openedx.org
 .. _troubleshooting: https://docs.tutor.edly.io/troubleshooting.html
 
