@@ -8,6 +8,11 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2025-12-10
+
+- [Improvement] Support for tutor v21 - Open edX Ulmo added.
+- [Deprecation] Support for versions 13 and 14 dropped.
+
 ## 2025-09-16
 
 - [Improvement] Migrate from pylint and black to ruff. (by @CodeWithEmad).
