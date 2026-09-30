@@ -33,7 +33,7 @@ def check_git_installed():
 def initial_git():
     if check_git_installed():
         try:
-            subprocess.call(["git", "init", "-q"])
+            subprocess.call(["git", "init", "--initial-branch=main", "-q"])
             if "{{ cookiecutter.git_repo }}":
                 subprocess.call(
                     ["git", "remote", "add", "origin", "{{ cookiecutter.git_repo }}"]
