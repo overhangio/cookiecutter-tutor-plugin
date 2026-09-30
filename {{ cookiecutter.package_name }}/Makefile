@@ -20,7 +20,7 @@ format: ## Format code
 fix-lint: ## Fix lint errors automatically
 	ruff check --fix ${SRC_DIRS}
 
-version: ## Print the current tutor-cairn version
+version: ## Print the current {{ cookiecutter.package_name }} version
 	@python -c 'import io, os; about = {}; exec(io.open(os.path.join("{{ cookiecutter.module_name }}", "__about__.py"), "rt", encoding="utf-8").read(), about); print(about["__version__"])'
 
 ESCAPE = 
