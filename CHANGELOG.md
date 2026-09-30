@@ -8,6 +8,11 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2026-09-30
+
+- [Improvement] Support for tutor v22 - Open edX Verawood added.
+- [Improvement] Git initialize with main branch by default instead of master.
+
 ## 2025-12-10
 
 - [Improvement] Support for tutor v21 - Open edX Ulmo added.
