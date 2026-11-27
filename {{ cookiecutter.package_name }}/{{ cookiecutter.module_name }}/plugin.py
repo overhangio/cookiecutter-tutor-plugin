@@ -1,9 +1,11 @@
 import os
+### import shlex
 from glob import glob
 
 import click
 import importlib_resources
 from tutor import hooks
+### from tutor.env import escape_template
 
 from .__about__ import __version__
 
@@ -172,6 +174,8 @@ for path in glob(str(importlib_resources.files("{{ cookiecutter.module_name }}")
 
 # To add a custom job, define a Click command that returns a list of tasks,
 # where each task is a pair in the form ("<service>", "<shell_command>").
+# Shell commands are rendered as templates, then run by the shell, so user-provided
+# values must be quoted with `shlex.quote` and then escaped with `escape_template`.
 # For example:
 ### @click.command()
 ### @click.option("-n", "--name", default="plugin developer")
@@ -179,9 +183,10 @@ for path in glob(str(importlib_resources.files("{{ cookiecutter.module_name }}")
 ###     """
 ###     An example job that just prints 'hello' from within both LMS and CMS.
 ###     """
+###     quoted_name = escape_template(shlex.quote(name))
 ###     return [
-###         ("lms", f"echo 'Hello from LMS, {name}!'"),
-###         ("cms", f"echo 'Hello from CMS, {name}!'"),
+###         ("lms", f"echo Hello from LMS, {quoted_name}!"),
+###         ("cms", f"echo Hello from CMS, {quoted_name}!"),
 ###     ]
 
 
