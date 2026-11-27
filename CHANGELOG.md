@@ -8,6 +8,10 @@ Please respect the following instructions:
 
 # Changelog
 
+## 2026-11-27
+
+- [Security] Escape user-provided values in the example custom job. (by @Abdul-Muqadim-Arbisoft)
+
 ## 2026-09-30
 
 - [Improvement] Support for tutor v22 - Open edX Verawood added.
